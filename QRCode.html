@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+       <meta charset="utf-8"/>
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+       <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+       <style>
+           @media print{
+               *{
+                   visibility: hidden;                   }
+            canvas{
+               width: 100%
+           }
+            #qr{
+                visibility: visible;
+                width: 100%;
+            }
+           }
+           canvas{
+            width: 40%
+           }
+           body{
+               background-color:#414141;
+           }
+       </style>
+   </head>
+   <body><script src="node_modules/qrious/dist/qrious.js"></script>
+       <header</header>
+        <section> 
+            <form>
+                <h1>mesa</h1>
+                <input type="number" onchange="pegaCampos(this.value)">
+                
+            </form>             
+        </section>
+        <canvas id="qr"></canvas>
+        <br>
+        <input type="button" value="imprimir" onclick="window.print();">
+        <script>let numero=0;
+
+            function pegaCampos(n){
+                numero=n;
+                var qr = new QRious({
+                element: document.getElementById('qr'),
+                value: 'site.com?'+numero,
+                background:"#ccc",
+                foreground:"#414141"
+                })
+            }   
+        </script>
+   </body>
+</html>
