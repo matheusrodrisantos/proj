@@ -8,35 +8,45 @@
        <style>
            @media print{
                *{
-                   visibility: hidden;                   }
-            canvas{
-               width: 100%
-           }
-            #qr{
-                visibility: visible;
-                width: 100%;
-            }
+                   visibility: hidden;                   
+				}
+				#qr
+				{
+					visibility: visible;
+					width: 100%;
+				}
+				.container
+				{
+					width: 100%;
+				}
            }
            canvas{
-            width: 40%
+            width: 100%
            }
            body{
-               background-color:#414141;
-           }
+				color:#83dd5c;
+               background-color:#f4f4f4;
+           }.container{
+			width:50%;	
+		   }
        </style>
+	   73ae59
    </head>
    <body><script src="node_modules/qrious/dist/qrious.js"></script>
        <header</header>
         <section> 
-            <form>
-                <h1>mesa</h1>
-                <input type="number" onchange="pegaCampos(this.value)">
-                
-            </form>             
+			<div class="container">
+				<form>
+					<h1>Coloque o numero da mesa</h1>
+					<input class="form-control" type="number" onchange="pegaCampos(this.value)">
+				</form>             
+			<div>
+			<canvas id="qr"></canvas>
+			<input type="button" class="btn btn-success" value="imprimir" onclick="window.print();">
         </section>
-        <canvas id="qr"></canvas>
+        
         <br>
-        <input type="button" value="imprimir" onclick="window.print();">
+        
         <script>let numero=0;
 
             function pegaCampos(n){
@@ -45,7 +55,7 @@
                 element: document.getElementById('qr'),
                 value: 'site.com?'+numero,
                 background:"#ccc",
-                foreground:"#414141"
+                foreground:"#000"
                 })
             }   
         </script>
