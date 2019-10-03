@@ -1,0 +1,84 @@
+<!doctype html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+.alertarCepErrado{
+    /*background-color: brown; */
+}
+</style>
+<script>
+    var fileLine;var fileArr;
+    var leitorDeCSV = new FileReader();//objeto a variavel
+    window.onload = function init() {//assim que carrega tras 
+        leitorDeCSV.onload = leCSV;
+    }
+    
+    function pegaCSV(inputFile) {
+        var file = inputFile.files[0];
+         leitorDeCSV.readAsText(file);
+    }
+    
+    function leCSV(evt) {
+    
+        fileArr = evt.target.result.split('\n');
+        var strDiv = "<div class='table-responsive' ><table class='table'>";
+        
+        for (var i=0; i<fileArr.length; i++) {
+            fileLine = fileArr[i].split(';');
+            pesquisaCep(fileLine[0]);
+            strDiv += "<tr class='alertarCepErrado' >";
+                for (var j=0; j<fileLine.length; j++) {
+
+                    strDiv += "<td class='col'><input type='text' id='"+fileLine[0].trim()+"' value=' "+
+                        fileLine[j].trim()+
+                        "'></td>";
+                }
+            strDiv += '</tr>';
+        }
+        strDiv += '</table></div>';
+        var CSVsaida = document.getElementById('CSVsaida');
+            CSVsaida.innerHTML = strDiv;
+
+    }
+    function meu_callback(conteudo){
+        
+        document.getElementById("resultados").innerHTML+="<tr>";
+            
+                document.getElementById("resultados").innerHTML+="CEP: "+conteudo.cep;
+            
+                document.getElementById("resultados").innerHTML+=" IBGE: "+conteudo.ibge;
+            
+                document.getElementById("resultados").innerHTML+=" CIDADE: "+conteudo.localidade+"</tr>";
+
+                document.getElementById("resultados").innerHTML+=" UF: "+conteudo.uf+"</tr>";
+        
+    }
+   function pesquisaCep(valor)
+   {
+        var script = document.createElement('script');
+        script.src = 'https://viacep.com.br/ws/'+ valor + '/json/?callback=meu_callback';
+        document.body.appendChild(script);
+   }
+    </script>
+    
+<html lang='pt-br'>
+    <head>
+    </head>
+    <body>
+        <header class="row">
+            <form>
+                <input id='inputFile' type="file" onchange="pegaCSV(this)">
+            </form>
+        </header>
+        <section class="row">
+            <div id="CSVsaida" class="col-sm-4">
+                <h2>CEPS DO APOLO </h2>
+            </div>
+            <div class="col-sm-8">
+                <h2>CEPS DO VIA CEP </h2>
+                <table id="resultados">
+
+                </table:>
+            </div>
+        </section>
+    </body>
+</html>
